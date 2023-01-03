@@ -27,7 +27,8 @@ void turn_right(struct ant *ant){
 
 void move_forward(struct ant *ant){
     
-    int x_val, y_val;
+    int x_val = 0; 
+    int y_val = 0;
     // takes in the direction that the ant is facing, needs to get the value of direction from the struct
 
     // as this will allow it to move one step
@@ -61,6 +62,7 @@ void move_forward(struct ant *ant){
     }
     
     else{
+        printf("direction given was%d\n",ant->direction);
         printf("A non-valid direction was given, so the program will now exit");
     }
 };

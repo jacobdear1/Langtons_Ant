@@ -17,5 +17,6 @@ library:
 	gcc -fPIC  -c *.c
 	gcc -shared -o libant.so *.o -lncurses
 	gcc -Wall -Wextra -o ant main.c -L. -lant 
+
 clean:
 	rm *.o ant libant.so

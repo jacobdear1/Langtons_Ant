@@ -54,6 +54,6 @@ int main(){
 
     }
     // free allocated memory;
-    free(new_ant);
+    //free(new_ant);
 
 }

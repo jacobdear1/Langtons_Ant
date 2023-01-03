@@ -8,10 +8,10 @@
 
 // macro cell_at is defined here, also needs to be a ternary if else statement as due to the definition in mvprintw
 // use the typedef enum colour cell; to help define the cell_at(y,x) -> *colour is the pointer to the values of the enum 
-enum colour *colour;
+enum colour colour;
 
 // takes the value of the enum colour and if it is black returns true, if not it returns false
-#define cell_at(y, x) ( (*colour  == WHITE) ? BLACK : WHITE)
+#define cell_at(y, x) ( (colour  == BLACK) ? BLACK : WHITE)
 
 #define cell_under_ant cell_at(ant->y, ant->x)
 cell *cells;
@@ -66,7 +66,6 @@ void visualise_and_advance(struct ant* ant) {
                                  //};
                                  //}
             // tenary if else statement Simply, the logic would be (condition) ? {code for YES} : {code for NO}
-            printf("before the visualisation");
             mvprintw(y,x,
                ant_is_at(y,x)
                  ? direction_to_s(ant->direction)
@@ -76,7 +75,6 @@ void visualise_and_advance(struct ant* ant) {
             );
          }
       }
-      printf("have reached here");
       refresh();
       
       /* Advance to next step */
