@@ -12,9 +12,10 @@ langton.o: langton.c langton.h
 	gcc -c langton.c
 
 %.o: %.c (DEPS)
-	
+
 library:
-	gcc -fPIC  -c langton.c visualiser.c -o libant.so
-	gcc -Wall -Wextra -o main main.c -L. -lant
+	gcc -fPIC  -c *.c
+	gcc -shared -o libant.so *.o -lncurses
+	gcc -Wall -Wextra -o ant main.c -L. -lant 
 clean:
-	rm *.o ant
+	rm *.o ant libant.so
