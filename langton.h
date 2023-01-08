@@ -23,7 +23,8 @@ struct rule
 // use the tenary if else statement within the defintion of ant_is_at;  Simply, the logic would be (condition) ? {code for YES} : {code for NO}
 // need to define this macro and then it should work?, the whole code
 
-// if the ant is at the specified position for both y and x returns true, else it returns false
+// if the ant is at the specified position for both y and x returns true, else it returns fals
+// this works correctly
 #define ant_is_at(posy, posx) ( (ant->y == posy) && (ant->x == posx) ? true : false)
 
 

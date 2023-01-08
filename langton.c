@@ -14,19 +14,76 @@ void turn_left(struct ant *ant){
     // dir = ant->direction;
     // printf("value%d\n", dir);
 
-    ant->direction = LEFT;
+    // want to change the ant to go 90 degrees clockwise, e.g. if the direction is left, then turning left would cause the ant to point down;
 
+    if (ant->direction == LEFT){
+        ant->direction = DOWN;
+    }
+    else{
+
+        if (ant->direction == DOWN){
+            ant->direction = RIGHT;
+        }
+        else{
+        
+            if (ant->direction == RIGHT){
+                //printf("right");
+                ant->direction = UP;
+                //printf("dir changed?%d", ant->direction);
+            }
+
+            // direction changes, but for some reason when it is passed back it doesn't change?
+
+            else{
+                if (ant->direction == UP){
+                    ant->direction = LEFT;
+                }
+            }
+        }
+    }
 };
 
 
 void turn_right(struct ant *ant){
     // takes in value of direction and then changes it to
     // change direction to 'Right'
-    ant->direction = RIGHT;
+    //enum direction dir_right = RIGHT;
+
+    //ant->direction = dir_right;
+
+    // want to change the ant to go 90 degrees clockwise, e.g. if the direction is left, then turning left would cause the ant to point down;
+
+    if (ant->direction == LEFT){
+        ant->direction = UP;
+    }
+    else{
+
+        if (ant->direction == DOWN){
+            ant->direction = LEFT;
+        }
+        else{
+        
+            if (ant->direction == RIGHT){
+                //printf("right");
+                ant->direction = DOWN;
+                //printf("dir changed?%d", ant->direction);
+            }
+
+            // direction changes, but for some reason when it is passed back it doesn't change?
+
+            else{
+                if (ant->direction == UP){
+                    ant->direction = RIGHT;
+                }
+            }
+        }
+    }
 };
 
+// this function works perfectly fine.
 void move_forward(struct ant *ant){
     
+    //printf("ant dir in move foward %d", ant->direction);
     int x_val = 0; 
     int y_val = 0;
     // takes in the direction that the ant is facing, needs to get the value of direction from the struct
@@ -35,35 +92,28 @@ void move_forward(struct ant *ant){
     
     // if it is moving left then decrement x by 1
     if(ant->direction == LEFT){
-        x_val = ant->x;
-        x_val = x_val - 1;
-        ant->x = x_val;
+        ant->x = ant->x - 1;
     }
 
     // if it is moving right then increment x by 1
     if(ant->direction == RIGHT){
-        x_val = ant->x;
-        x_val = x_val + 1;
-        ant->x = x_val;       
+        ant->x = ant->x + 1;   
+         
     }
 
     // if it is moving up then increment y by 1
     if (ant->direction == UP){
-        y_val = ant->y;
-        y_val = y_val + 1;
-        ant->y = y_val;
+        ant->y = ant->y - 1;
     }
 
     // if it is moving down then decrement by 1
     if (ant->direction == DOWN){
-        y_val = ant->y;
-        y_val = y_val - 1;
-        ant->y = y_val;
+        ant->y = ant->y + 1;
     }
     
     else{
-        printf("direction given was%d\n",ant->direction);
-        printf("A non-valid direction was given, so the program will now exit");
+        //printf("direction given was%d\n",ant->direction);
+        //printf("A non-valid direction was given, so the program will now exit");
     }
 };
 
@@ -74,16 +124,24 @@ void apply_rule(enum colour *colour, struct ant *ant){
 // when colour = black, change direction to right, call turn_right function and then change colour to white?
 
 // need to add the stars as this means that it will be able to used the value passed by the function?
+    //printf("val of colour %d", *colour);
+    
+    // this isn't working due to the colout being sent, should be a 0 or 1, not 1342361600 for example.
     if(*colour == WHITE){
+        //printf("white");
+        //printf("ant dir before %d", ant->direction);
         turn_left(ant); 
+        //printf("turned left");
+        //printf("ant dir=%d", ant->direction);
         *colour = BLACK;
+        //printf("colour%d", *colour);
     }
 
-    if(*colour == BLACK){
+    else{
         turn_right(ant); 
         *colour = WHITE;
     }
-    
+
 };
 
 // look at how to do first part with the enums and that

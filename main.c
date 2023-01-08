@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "langton.h"
 #include "visualiser.h"
 
 int main(){
@@ -10,6 +9,11 @@ int main(){
     struct ant *new_ant = NULL;
     // memory to the pointer new_ant, has all of the properties of the struct ant
     new_ant = malloc(sizeof(struct ant));
+
+    if (new_ant == NULL){
+        printf("Error in malloc() for the struct ant");
+        exit(1);
+    }
 
     int first = 0;
     int second = 0;
@@ -25,7 +29,7 @@ int main(){
     printf("have reached x\n");
     new_ant->y = second;
     printf("have reached y\n");
-    new_ant->direction = RIGHT;
+    new_ant->direction = UP;
     printf("value %d\n", new_ant->x);
     printf("value y %d\n", new_ant->y);
     printf("value dir%d\n", new_ant->direction);
@@ -34,6 +38,7 @@ int main(){
     start_visualisation(new_ant);
     printf("value 2 %d\n", new_ant->x);
     printf("vis started");
+    //visualise_and_advance(new_ant);
 
     // can tell that the visualisation has started as the terminal does something, but just doesn't print the ant onto the screen. -> error with a 
     // a pointer in the visualise and advance function
@@ -43,17 +48,18 @@ int main(){
     while(not_quit() != false){
         // new error inside of this function, bad memory allocation, need to look into it
         visualise_and_advance(new_ant);
+        //qqqprintf("here 23");
 
         // if the user presses q to quit then end the visualisation
         // we know this works if the user presses q.
-        if (not_quit() == true){
+        if (not_quit() == false){
+                //free(new_ant);
                 printf("visualisation ended");
                 end_visualisation(new_ant);
 
         }
 
     }
-    // free allocated memory;
-    //free(new_ant);
-
+    // free allocated memory
+    free(new_ant);
 }
