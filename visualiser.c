@@ -8,6 +8,7 @@
 // macro cell_at is defined here, also needs to be a ternary if else statement as due to the definition in mvprintw
 // use the typedef enum colour cell; to help define the cell_at(y,x) -> *colour is the pointer to the values of the enum ce colour; 
 
+cell *colour;
 // cell *col; // val of cell represented by col
 // takes the value of the enum colour and if it is black returns true (BLACK has val 1 which is the same as true), if not it returns false (WHITE has val 0 which is the same as false)
 #define cell_at(y, x) ((*cells))  // needs to use cells otherwise the macro won't work
@@ -44,7 +45,7 @@ void start_visualisation(struct ant* ant) {
 
 void visualise_and_advance(struct ant* ant) {
       /* Draw cells and ant */
-      printf(" start dir %d \n", ant->direction);
+      //printf(" start dir %d \n", ant->direction);
       for (int y=0; y<max_y; y++)
       {
          for (int x=0; x<max_x; x++)
