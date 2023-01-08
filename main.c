@@ -65,13 +65,12 @@ int main(int argc, char** argv){
                     //free(new_ant);
                     printf("visualisation ended");
                     end_visualisation(new_ant);
-
             }
 
         }
         // free allocated memory
         free(new_ant); 
-        
+            
     }
 
     // catches error in the case that the input the incorrect format of more than 2 arguments
@@ -80,11 +79,10 @@ int main(int argc, char** argv){
         exit(1);
     }
 
-    else{
+    if (argc==2){
         // stores the value of the command line input into the variable rule
         char *rule;
         rule = argv[1];
-
         // checks the rule is of the correct format
         for (int i=0;i<strlen(rule);i++){
             printf(" %d", rule[i]);
@@ -97,13 +95,23 @@ int main(int argc, char** argv){
                 rule[i] = toupper(rule[i]);
                 }
         }
+
         printf("new rule %s", rule);
         printf("rule valid");
 
+        struct rule *new_rule = NULL;
+        // allocate memory for struct
+        new_rule = malloc(sizeof(argv[1]));
+
+        // not sure if we need to allocate each individual rule space?, or if we look at this in the function apply_rule_general
+        new_rule->rules = rule;
+        printf("rule %s",new_rule->rules);
+
+        // free allocated memory for the rule
+        free(new_rule);
 
     }
+    
     // at this point an ant has been created and then we start the visualisation with this
     
-    // free allocated memory
-    //free(new_ant);
 }
