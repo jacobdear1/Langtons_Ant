@@ -8,6 +8,8 @@ Further details of this can be found in the corresponding paper(https://arxiv.or
 
 To implement Langton's ant, a basic version and then the more advanced; general ant which can have up to n states, with a rule inputted to define what to do at squares of specific states from 1 to n.
 
+The ant will move around the screen by the user pressing any key except q, q will quit the program and stop the visualisation
+
 ### How to run the code 
 
 To run the program use;
