@@ -84,8 +84,10 @@ int main(int argc, char** argv){
         char *rule;
         rule = argv[1];
         // checks the rule is of the correct format
+        
+        // error here in the comparison of i and strlen(rule); warning: comparison of integers of different signs: 'int' and 'unsigned long' [-Wsign-compare]
         for (int i=0;i<strlen(rule);i++){
-            printf(" %d", rule[i]);
+            //printf(" %d", rule[i]);
             if (rule[i] != ('L') && rule[i] != 'R' && rule[i] != ('l') && rule[i] != 'r'){
                 printf("Rule wasn't of correct format; which is a combination of L, R, l or r");
                 exit(1);
@@ -96,12 +98,15 @@ int main(int argc, char** argv){
                 }
         }
 
-        printf("new rule %s", rule);
+        //printf("new rule %s", rule);
         printf("rule valid");
 
         struct rule *new_rule = NULL;
-        // allocate memory for struct
-        new_rule = malloc(sizeof(argv[1]));
+        // allocate memory for struct, but do it for the length of char and then add this to the struct in a for loop?
+        // new_rule = malloc(sizeof(argv[1]));
+ 
+        // allocates the correct amount of memory for each character?
+        new_rule = malloc(strlen(rule));
 
         // not sure if we need to allocate each individual rule space?, or if we look at this in the function apply_rule_general
         new_rule->rules = rule;

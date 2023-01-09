@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "langton.h"
 #include "visualiser.h"
 
@@ -144,8 +145,4 @@ void apply_rule(enum colour *colour, struct ant *ant){
 
 };
 
-// look at how to do first part with the enums and that
-
-// then look at the grid and its topology, if you go one above the top most value then you go to the bottom row. If you go one, use a function?
-
-// pass the x value from struct ant and compare this to the max value of grid. need to work out how to pass the max value from visualiser.c
+  
