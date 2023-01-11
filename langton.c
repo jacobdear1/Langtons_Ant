@@ -3,6 +3,9 @@
 #include "langton.h"
 #include "visualiser.h"
 
+// look into whether switch case statements are more memory efficient
+
+
 // "after the ant has left a square at state i, the squares state changes to i+1", add this
 
 // struct ant contains an integer x and an integer y, so take these using pointers and an enum called direction
@@ -17,30 +20,29 @@ void turn_left(struct ant *ant){
 
     // want to change the ant to go 90 degrees clockwise, e.g. if the direction is left, then turning left would cause the ant to point down;
 
-    if (ant->direction == LEFT){
+    // switch case statement for changing the direction
+    //ant->direction;
+    switch (ant->direction)
+    {
+    // up
+    case 0:
+        ant->direction = LEFT;
+        break;
+    // down
+    case 1:
+        ant->direction = RIGHT;
+        break;
+    // left
+    case 2:
         ant->direction = DOWN;
-    }
-    else{
-
-        if (ant->direction == DOWN){
-            ant->direction = RIGHT;
-        }
-        else{
-        
-            if (ant->direction == RIGHT){
-                //printf("right");
-                ant->direction = UP;
-                //printf("dir changed?%d", ant->direction);
-            }
-
-            // direction changes, but for some reason when it is passed back it doesn't change?
-
-            else{
-                if (ant->direction == UP){
-                    ant->direction = LEFT;
-                }
-            }
-        }
+        break;
+    // right 
+    case 3:
+        ant->direction = UP;
+        break;    
+    default:
+        printf("invalid direction entered");
+        break;
     }
 };
 
@@ -52,32 +54,28 @@ void turn_right(struct ant *ant){
 
     //ant->direction = dir_right;
 
-    // want to change the ant to go 90 degrees clockwise, e.g. if the direction is left, then turning left would cause the ant to point down;
-
-    if (ant->direction == LEFT){
+    // switch case statement for changing the direction
+    //ant->direction;
+    switch (ant->direction)
+    {
+    // up
+    case 0:
+        ant->direction = RIGHT;
+        break;
+    // down
+    case 1:
+        ant->direction = LEFT;
+        break;
+    // left
+    case 2:
         ant->direction = UP;
-    }
-    else{
-
-        if (ant->direction == DOWN){
-            ant->direction = LEFT;
-        }
-        else{
-        
-            if (ant->direction == RIGHT){
-                //printf("right");
-                ant->direction = DOWN;
-                //printf("dir changed?%d", ant->direction);
-            }
-
-            // direction changes, but for some reason when it is passed back it doesn't change?
-
-            else{
-                if (ant->direction == UP){
-                    ant->direction = RIGHT;
-                }
-            }
-        }
+        break;
+    // right 
+    case 3:
+        ant->direction = DOWN;
+        break;    
+    default:
+        printf("invalid direction entered");
     }
 };
 
@@ -91,31 +89,28 @@ void move_forward(struct ant *ant){
 
     // as this will allow it to move one step
     
-    // if it is moving left then decrement x by 1
-    if(ant->direction == LEFT){
-        ant->x = ant->x - 1;
-    }
-
-    // if it is moving right then increment x by 1
-    if(ant->direction == RIGHT){
-        ant->x = ant->x + 1;   
-         
-    }
-
-    // if it is moving up then increment y by 1
-    if (ant->direction == UP){
+    switch (ant->direction)
+    {
+    // up
+    case 0:
         ant->y = ant->y - 1;
+        break;
+    // down
+    case 1:
+        ant->y = ant->y + 1;
+        break;
+    // left
+    case 2:
+        ant->x = ant->x - 1;
+        break;
+    // right 
+    case 3:
+        ant->x = ant->x + 1;  
+        break;    
+    default:
+        printf("invalid direction entered");
     }
 
-    // if it is moving down then decrement by 1
-    if (ant->direction == DOWN){
-        ant->y = ant->y + 1;
-    }
-    
-    else{
-        //printf("direction given was%d\n",ant->direction);
-        //printf("A non-valid direction was given, so the program will now exit");
-    }
 };
 
 void apply_rule(enum colour *colour, struct ant *ant){
@@ -145,4 +140,23 @@ void apply_rule(enum colour *colour, struct ant *ant){
 
 };
 
-  
+// need to change the state, once it has visited the state i it changes to state i+1;
+
+void apply_rule_general(enum colour *colour, struct ant *ant, struct rule *rule){
+    printf("rule %c",*rule->rules);
+
+    // loop takes in the value of rules and then the for loop lets you gain access to each of them
+    for (int j=0; j<strlen(rule->rules); j++){
+        // states are represnted by j, as intially it is zero, as the ant is also defined to start at 0
+        printf("rule {j}%c",rule->rules[j]);
+        // if the rule is L then the ant needs to turn left
+        if (rule->rules[j] == ('L')){
+            //turn_left(ant);
+        }
+        // in the case that the rule is R
+        else{
+            //turn_right(ant);
+        }
+    }
+
+}

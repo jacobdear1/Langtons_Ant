@@ -35,19 +35,11 @@ int main(int argc, char** argv){
     // new_ant->x = malloc(sizeof(int));
 
         new_ant->x = first;
-        printf("have reached x\n");
         new_ant->y = second;
-        printf("have reached y\n");
         new_ant->direction = UP;
-        printf("value %d\n", new_ant->x);
-        printf("value y %d\n", new_ant->y);
-        printf("value dir%d\n", new_ant->direction);
         
         // at this point an ant has been created and then we start the visualisation with this
         start_visualisation(new_ant);
-        printf("value 2 %d\n", new_ant->x);
-        printf("vis started");
-        //visualise_and_advance(new_ant);
 
         // can tell that the visualisation has started as the terminal does something, but just doesn't print the ant onto the screen. -> error with a 
         // a pointer in the visualise and advance function
@@ -55,16 +47,14 @@ int main(int argc, char** argv){
 
         // loops round until the user presses q, function not_quit() works out if q has been pressed or not
         while(not_quit() != false){
-            // new error inside of this function, bad memory allocation, need to look into it
-            visualise_and_advance(new_ant);
-            //qqqprintf("here 23");
 
-            // if the user presses q to quit then end the visualisation
-            // we know this works if the user presses q.
+            // if the user presses q to quit then ends the visualisation
             if (not_quit() == false){
-                    //free(new_ant);
                     printf("visualisation ended");
                     end_visualisation(new_ant);
+            }
+            for (int k =0; k<100; k++){
+                visualise_and_advance(new_ant);
             }
 
         }
@@ -103,14 +93,20 @@ int main(int argc, char** argv){
 
         struct rule *new_rule = NULL;
         // allocate memory for struct, but do it for the length of char and then add this to the struct in a for loop?
-        // new_rule = malloc(sizeof(argv[1]));
+        new_rule = malloc(sizeof(argv[1]));
  
         // allocates the correct amount of memory for each character?
-        new_rule = malloc(strlen(rule));
+        //new_rule = malloc(strlen(rule));
 
         // not sure if we need to allocate each individual rule space?, or if we look at this in the function apply_rule_general
         new_rule->rules = rule;
         printf("rule %s",new_rule->rules);
+        
+        // after this, would then call the visualiser file, first the start visualisation and then the visualise and advance
+        enum colour *colour;
+        struct ant *ant;
+    
+        apply_rule_general(colour,ant,new_rule);
 
         // free allocated memory for the rule
         free(new_rule);

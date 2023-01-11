@@ -25,7 +25,7 @@ struct rule
 
 // if the ant is at the specified position for both y and x returns true, else it returns fals
 // this works correctly
-#define ant_is_at(posy, posx) ( (ant->y == posy) && (ant->x == posx) ? true : false)
+#define ant_is_at(posy, posx) ((ant->y == posy) && (ant->x == posx))
 
 
 enum colour { WHITE, BLACK };
