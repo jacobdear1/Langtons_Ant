@@ -53,7 +53,7 @@ int main(int argc, char** argv){
                     printf("visualisation ended");
                     end_visualisation(new_ant);
             }
-            for (int k =0; k<100; k++){
+            for (int k =0; k<1000; k++){
                 visualise_and_advance(new_ant);
             }
 
