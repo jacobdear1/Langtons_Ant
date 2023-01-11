@@ -106,20 +106,25 @@ void visualise_and_advance(struct ant* ant) {
          ant->x = 0;
         // min_x?
          }
+      else{
+         if (ant->x < 0){
+            ant->x = max_x;
+         }
+      }
 
       if (ant->y > max_y){
          ant->y = 0;
       }
+      else{
+         if (ant->y < 0){
+         ant->y = max_y;
+         }
+      }
 
       // if the ant goes below 0 (the bottom), then it goes to the rightmost row
-      if (ant->x < 0){
-         ant->x = max_x;
-         // min_x?
-      }
 
-      if (ant->y < 0){
-         ant->y = max_y;
-      }
+
+
 
 
 }

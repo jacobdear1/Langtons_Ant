@@ -1,7 +1,7 @@
 DEPS = langton.h visualiser.h
 
 all: visualiser.o langton.o main.c
-	gcc -o ant main.c visualiser.o langton.o -lncursesw
+	gcc -o ant main.c visualiser.o langton.o -lncurses
 
 	# need to add ncursesw before submission?
 
