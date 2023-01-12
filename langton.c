@@ -124,15 +124,11 @@ void apply_rule(enum colour *colour, struct ant *ant){
     
     // this isn't working due to the colout being sent, should be a 0 or 1, not 1342361600 for example.
     if(*colour == WHITE){
-        //printf("white");
-        //printf("ant dir before %d", ant->direction);
         turn_left(ant); 
-        //printf("turned left");
-        //printf("ant dir=%d", ant->direction);
         *colour = BLACK;
-        //printf("colour%d", *colour);
     }
 
+    // case when the colour of cell is black
     else{
         turn_right(ant); 
         *colour = WHITE;
@@ -152,6 +148,8 @@ void apply_rule_general(enum colour *colour, struct ant *ant, struct rule *rule)
         // if the rule is L then the ant needs to turn left
         if (rule->rules[j] == ('L')){
             //turn_left(ant);
+            // change the state of this square -> change this in visualiser function? as this is what will corrrepsond to the symbols
+            
         }
         // in the case that the rule is R
         else{

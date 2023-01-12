@@ -9,7 +9,7 @@
 // use the typedef enum colour cell; to help define the cell_at(y,x) -> *colour is the pointer to the values of the enum ce colour; 
 
 // takes the value of the enum colour and if it is black returns true (BLACK has val 1 which is the same as true), if not it returns false (WHITE has val 0 which is the same as false)
-#define cell_at(y, x) (cells[y*max_x+x])  // needs to use cells otherwise the macro won't work
+#define cell_at(y, x) (cells[ (y*max_x) + x])  // needs to use cells otherwise the macro won't work
 
 // macro definition seems to be fine, as it returns the correct colour for cell under ant
 // 
@@ -102,25 +102,16 @@ void visualise_and_advance(struct ant* ant) {
       //printf("has finished the function");
       
       // implementation of the torus 
-      if (ant->x > max_x){
-         ant->x = 0;
-        // min_x?
-         }
-      else{
-         if (ant->x < 0){
-            ant->x = max_x;
-         }
-      }
 
-      if (ant->y > max_y){
-         ant->y = 0;
+      // mod function
+      ant->x %= max_x;
+      ant->y %= max_y;
+      if (ant->x <0){
+         ant->x += max_x;
       }
-      else{
-         if (ant->y < 0){
-         ant->y = max_y;
-         }
+      if (ant->y <0){
+         ant->y += max_y;
       }
-
       // if the ant goes below 0 (the bottom), then it goes to the rightmost row
 
 

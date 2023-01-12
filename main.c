@@ -53,7 +53,7 @@ int main(int argc, char** argv){
                     printf("visualisation ended");
                     end_visualisation(new_ant);
             }
-            for (int k =0; k<1000; k++){
+            for (int k =0; k<500; k++){
                 visualise_and_advance(new_ant);
             }
 
@@ -94,6 +94,12 @@ int main(int argc, char** argv){
         struct rule *new_rule = NULL;
         // allocate memory for struct, but do it for the length of char and then add this to the struct in a for loop?
         new_rule = malloc(sizeof(argv[1]));
+
+        // in the case that memory can't be allocated properly
+        if (new_rule == NULL){
+            printf("Error in malloc() for the struct rule");
+            exit(1);
+        }
  
         // allocates the correct amount of memory for each character?
         //new_rule = malloc(strlen(rule));
