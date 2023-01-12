@@ -104,8 +104,12 @@ void visualise_and_advance(struct ant* ant) {
       // implementation of the torus 
 
       // mod function
-      ant->x %= max_x;
-      ant->y %= max_y;
+      if (ant->x >= max_x){
+         ant->x -= max_x;
+      }
+      if (ant->y >= max_y){
+         ant->y -= max_y;
+      }
       if (ant->x <0){
          ant->x += max_x;
       }
