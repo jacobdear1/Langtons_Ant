@@ -30,11 +30,14 @@ struct rule
 
 enum colour { WHITE, BLACK };
 
+// new data structure to help visualise the new function,
+enum gen_cell {A, B, C, D, E, F, G, H, I, J, K, L, M ,N , O, P, Q , R, S, T, U ,V, W,X, Y,Z};
 void turn_left(struct ant *ant);
 void turn_right(struct ant *ant);
 void move_forward(struct ant *ant);
 
 void apply_rule(enum colour *colour, struct ant *ant);
-void apply_rule_general(enum colour *colour, struct ant *ant, struct rule *rule);
+// change this function to change the enum you are allowed?
+void apply_rule_general(enum gen_cell *gen_cell, struct ant *ant, struct rule *rule);
 
 #endif

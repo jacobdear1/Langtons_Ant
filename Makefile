@@ -11,12 +11,15 @@ visualiser.o: visualiser.c visualiser.h
 langton.o: langton.c langton.h
 	gcc -c langton.c
 
-%.o: %.c (DEPS)
+%.o: %.c $(DEPS)
+	gcc -c $< -0
+
 
 library:
 	gcc -fPIC  -c *.c
 	gcc -shared -o libant.so *.o -lncurses
 	gcc -Wall -Wextra -o ant main.c -L. -lant 
 
+# -f means that it will won't produce an error in the case that one of the executables or the library doesn't exist
 clean:
-	rm *.o ant libant.so
+	rm -rf *.o ant libant.so
