@@ -20,14 +20,17 @@ and then to run the executable
 
 ```./ant```
 
-To compile a dynamically linked library ```libant.so```
+### To compile a dynamically linked library ```libant.so```
 
 ```make library```
 
 and then the executable
 
 ```./ant```
+### Applying general rule for n state ants
+If you want to apply the general rule, call the executable ```ant``` followed by a combination of L and R depending on what you want it to do in the states call, for example
 
-To clean all of the executable and dynamically linked library
+```./ant LRLRR``` where the ant will turn left on states 0 and 2, and right on states 1, 3, 4
+### To clean all of the executable and dynamically linked library
 
 ```make clean```
