@@ -13,25 +13,25 @@ int main(int argc, char** argv){
         // memory to the pointer new_ant, has all of the properties of the struct ant
         new_ant = malloc(sizeof(struct ant));
 
+        // check that the memory has been allocated properly
         if (new_ant == NULL){
             printf("Error in malloc() for the struct ant");
             exit(1);
         }
-
-        // not sure if we need this due to start_visualisation changing these values?
-        new_ant->x = 0;
-        new_ant->y = 0;
-        new_ant->direction = UP;
         
         // at this point an ant has been created and then we start the visualisation with this
         start_visualisation(new_ant);
 
+        // if the user presses q to quit then ends the visualisation
+        if (not_quit() == false){
+                end_visualisation(new_ant);
+        }
         // loops round until the user presses q, function not_quit() works out if q has been pressed or not
         while(not_quit() != false){
 
             // if the user presses q to quit then ends the visualisation
             if (not_quit() == false){
-                    end_visualisation(new_ant);
+                    end_visualisation(new_ant); 
             }
             for (int k =0; k<500; k++){
                 visualise_and_advance(new_ant);
@@ -44,17 +44,20 @@ int main(int argc, char** argv){
 
     // catches error in the case that the input the incorrect format of more than 2 arguments
     if (argc > 2){
-        printf("Incorrect number of arugments passed, max is the executable, ./ant and a rule in the form LR");
+        printf("Incorrect number of arguments passed, max is the executable, ./ant and a rule in the form LR");
         exit(1);
     }
 
     if (argc==2){
         // stores the value of the command line input into the variable rule
-        char *rule;
-        rule = argv[1];
+        char *rule = argv[1];
+        // only have to visualise rules of up to 26 characters, so checks that is is not more than this
+        if (strlen(rule) > 26){
+            printf("The maximum length of rules than can be visualised is 26, try again!");
+            exit(1);
+        }
+
         // checks the rule is of the correct format
-        
-        // error here in the comparison of i and strlen(rule); warning: comparison of integers of different signs: 'int' and 'unsigned long' [-Wsign-compare]
         for (unsigned long i=0;i<strlen(rule);i++){
             // check that the rule is of the correct format
             if (rule[i] != ('L') && rule[i] != 'R' && rule[i] != ('l') && rule[i] != 'r'){
@@ -66,8 +69,6 @@ int main(int argc, char** argv){
                 rule[i] = toupper(rule[i]);
                 }
         }
-
-        printf("rule valid");
 
         struct rule *new_rule = NULL;
         // allocate memory for struct, but do it for the length of char and then add this to the struct in a for loop?
@@ -84,10 +85,8 @@ int main(int argc, char** argv){
 
         // not sure if we need to allocate each individual rule space?, or if we look at this in the function apply_rule_general
         new_rule->rules = rule;
-        printf("rule %s",new_rule->rules);
         
         // after this, would then call the visualiser file, first the start visualisation and then the visualise and advance
-        enum colour *colour;
         struct ant *gen_ant = NULL;
 
         // allocates memory for the general ant
@@ -103,28 +102,24 @@ int main(int argc, char** argv){
        gen_start_visualisation(gen_ant, new_rule);
         
         // loops round until the user presses q, function not_quit() works out if q has been pressed or not
+        if (not_quit() == false){
+            gen_end_visualisation(gen_ant);
+        }
         while(not_quit() != false){
-
-            // if the user presses q to quit then ends the visualisation
-            if (not_quit() == false){
-                    end_visualisation(gen_ant);
-            }
-            // calls the general function for visualisation
-            // only want to pass the individual rule each time?
             for (int k = 0; k<1; k++){
                 gen_vis_advance(gen_ant, new_rule);
             }
-
+            
+            // if the user presses q to quit then ends the visualisation
+            if (not_quit() == false){
+                    gen_end_visualisation(gen_ant);
+            }
+            // calls the general function for visualisation
+            // only want to pass the individual rule each time?
         }
-
-    
-        //apply_rule_general(colour,gen_ant,new_rule);
-
         // free allocated memory for the rule
         free(new_rule);
         // free allocated memory for the ant
         free(gen_ant);
-
     }
-  
 }

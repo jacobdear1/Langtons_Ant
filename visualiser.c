@@ -82,25 +82,24 @@ void visualise_and_advance(struct ant* ant) {
       move_forward(ant);
       
       // implementation of the torus 
-
+      // if the ant goes above the top row, it will go down to the bottom row
       if (ant->x >= max_x){
          ant->x -= max_x;
       }
+      // if the ant reaches the one column to the right of the rightmost column, it will reach the leftmost column
       if (ant->y >= max_y){
          ant->y -= max_y;
       }
+      // if the ant goes below the bottom row, it will go back up to the top row
       if (ant->x < 0){
          ant->x += max_x;
       }
+      // if the ant reaches the one column to the left of the leftmost column, it will reach the rightmost column
       if (ant->y < 0){
          ant->y += max_y;
       }
-      // if the ant goes below 0 (the bottom), then it goes to the rightmost row
-
-
 }
 
-// need to define 2 enums that hold the colours and one that holds the shading?
 
 // function to start the visualisation of the new cells in the case of the general ant
 void gen_start_visualisation(struct ant* ant, struct rule* rule) {
@@ -110,10 +109,12 @@ void gen_start_visualisation(struct ant* ant, struct rule* rule) {
    curs_set(FALSE);
    max_x = getmaxx(stdscr);
    max_y = getmaxy(stdscr);
-   // size of cell needs to be changed, as it means that currently it only has 2 values it can take; black and white
-   // change this defintion, so the sizeof is equal to the number of representations that the ant can have 
+
+   // these 2 lines mean that; gen_cells is only allocated as many states as equal to the length of the rule,
+   // as e.g. we don't want to have 26 different values the cell can take, when the rule has a length of 2 
    int length_rule = strlen(rule->rules);
    gen_cells = calloc(max_y*max_x, sizeof(length_rule)); // sets boundaries of the finite rectangular grid
+   
    ant->x = max_x/2;
    ant->y = max_y/2;
    ant->direction = RIGHT;
@@ -140,31 +141,29 @@ void gen_vis_advance(struct ant* ant, struct rule* rule){
          }
       }
       refresh();
-      //int y, x = 0;
-      //printf("gen_cells at %d", gen_cell_at(ant->y,ant->x));
-      //printf("val%d",gen_cell_under_ant);
-      // this function isn't working properly
-      // maybe we need to pass the individual value of the rule, so it only applies the function to one rule at a time
+      // passes the value of the current gen_cell_under_ant, I have adapted cell_under_ant to work for my general ant, the ant and then the rule
       apply_rule_general(&gen_cell_under_ant, ant, rule);
       move_forward(ant);
-      //printf("has finished the function");
       
       // implementation of the torus 
-
+      // if the ant goes above the top row, it will go down to the bottom row
       if (ant->x >= max_x){
          ant->x -= max_x;
       }
+      // if the ant reaches the one column to the right of the rightmost column, it will reach the leftmost column
       if (ant->y >= max_y){
          ant->y -= max_y;
       }
+      // if the ant goes below the bottom row, it will go back up to the top row
       if (ant->x < 0){
          ant->x += max_x;
       }
+      // if the ant reaches the one column to the left of the leftmost column, it will reach the rightmost column
       if (ant->y < 0){
          ant->y += max_y;
       }
-
 }
+
 // Check if the user has input "q" to quit
 bool not_quit() {
    return 'q' != getch();
@@ -175,6 +174,12 @@ void end_visualisation() {
    endwin();
 }
 
+// the general ant is defined differently so needs to free up the cells it uses instead
+void gen_end_visualisation() {
+   free(gen_cells);
+   endwin();
+}
+
 // direction to set the ant off to 
 const char* direction_to_s(enum direction d) {
    return UP   == d ? "^" :
@@ -182,5 +187,3 @@ const char* direction_to_s(enum direction d) {
           LEFT == d ? "<" :
           /* else */  ">" ;
 }
-
-// .h.gch happen when you precompile header files that do not need to be recomplied?
