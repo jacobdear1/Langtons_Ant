@@ -106,7 +106,7 @@ int main(int argc, char** argv){
             gen_end_visualisation(gen_ant);
         }
         while(not_quit() != false){
-            for (int k = 0; k<1; k++){
+            for (int k = 0; k<500; k++){
                 gen_vis_advance(gen_ant, new_rule);
             }
             

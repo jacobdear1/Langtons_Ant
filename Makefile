@@ -18,6 +18,7 @@ langton.o: langton.c langton.h
 library:
 	gcc -fPIC  -c *.c
 	gcc -shared -o libant.so *.o -lncurses
+	# add ncursesw before submission
 	gcc -Wall -Wextra -o ant main.c -L. -lant 
 
 # -f means that it will won't produce an error in the case that one of the executables or the library doesn't exist

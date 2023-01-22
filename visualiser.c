@@ -12,7 +12,7 @@
 
 // takes the value of the enum colour and if it is black returns true (BLACK has val 1 which is the same as true), if not it returns false (WHITE has val 0 which is the same as false)
 #define cell_at(y, x) (cells[ (y*max_x) + x])  // finds the value that the cells is at
-#define gen_cell_at(y, x) (gen_cells [ (y*max_x) + x]) // will have a different definition;
+#define gen_cell_at(y, x) (gen_cells[ (y*max_x) + x]) // will have a different definition;
 
 // macro definition seems to be fine, as it returns the correct colour for cell under ant
 // 
@@ -41,7 +41,7 @@ typedef enum gen_cell g_colours;
 g_colours *gen_cells;
 
 // defines the rule for use?
-struct rule *rule;
+//struct rule *rule;
 
 // use an enum to represent colours?
 
@@ -123,25 +123,62 @@ void gen_start_visualisation(struct ant* ant, struct rule* rule) {
 // function to allow use to visualise the states
 void gen_vis_advance(struct ant* ant, struct rule* rule){
       /* Draw cells and ant */
+
+      // define the array here;
+      // "█"
+
+      // also the original value, so state 0 needs to equal value of whatever is at the end of the conditonal statement
+      char *vis_array[10] = {" ", "B", "C", "D", "E", "F", "H", "I"};
+
+      // fix the pointer conversion issue, turn the value produced by the vis_array into a char somehow
+
+      // could do 
+      //int vis_array[g_colours]? just so the size is correct
+
+      // make sure that the value is greater than or equal to 1 to apply this otheriwse it won't work
+
+      //printf("cell at%d", gen_cell_at(ant->y, ant->x));
+      //char* v = vis_array[gen_cell_at(ant->y, ant->x)];
+      //printf("val%s", v);
+
       for (int y=0; y<max_y; y++)
       {
          for (int x=0; x<max_x; x++)
          {
+            char* v = vis_array[gen_cell_at(ant->y, ant->x)];
             mvprintw(y,x,
                ant_is_at(y,x)
                  ? direction_to_s(ant->direction)
                  // change this to display the colour based on the state that the ant is currently at using the rule length and the state representations?
+                 // if the current cell has a value of 0, then we have it as the original state and visualise it as white
+                 
+                 // **this condtional means that it changes the value of every 'cell' that has been 'visited', rather than the last one we were at**
+                 // this issue needs fixing. 
                  : gen_cell_at(y,x) // value of this is changed by the apply_rule_general function, just need a way to represent this
                  // needs to represent the colour / value related to its position in the enum?
                     //attron(COLOR_PAIR())
                     // need to work out a way to visualise different things depending on their state.
-                    ? "█"
+
+                    // have an array here that has 26 values in it, and then use the value of gen_cell_at(y, x), to reference the array
+                    // and this referenece to the array then points to the value that will be outputted
+                    // could also use the typedef gen_cells, and reference this and then visualise this value that has been specified in the enum / array?
+                    
+
+                    // do it so if the value = 0 then do white else call the array?
+                    // maybe change the if statement
+                    //? use array[gen_cell_at(ant->, ant)]
+                    //? "█"
+
+                    // somewhat works, but instead of changing the specific cell it was at, it changes the whole screen?
+                    // it changes all of the visited values rather than the value that the cell is at?
+                    ? v
                     : " "
             );
          }
       }
       refresh();
       // passes the value of the current gen_cell_under_ant, I have adapted cell_under_ant to work for my general ant, the ant and then the rule
+      //printf("cell at val %d ", gen_cell_at(ant->y, ant->x));
       apply_rule_general(&gen_cell_under_ant, ant, rule);
       move_forward(ant);
       
