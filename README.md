@@ -31,6 +31,11 @@ and then the executable
 If you want to apply the general rule, call the executable ```ant``` followed by a combination of L and R depending on what you want it to do in the states call, for example
 
 ```./ant LRLRR``` where the ant will turn left on states 0 and 2, and right on states 1, 3, 4
+
+Note: This general rule works for rules of length up to 26.
 ### To clean all of the executable and dynamically linked library
 
 ```make clean```
+
+Note: If you are using MacOS, change the ```-lncursesw``` in the Makefile, in these 2 functions; ```make all``` and ```make library``` 
+to ```-lncurses``` as MacOS does not have support for ```-lncursesw```, unlike Windows.
