@@ -22,7 +22,7 @@ struct rule
 enum colour { WHITE, BLACK };
 
 // new data structure to help visualise the new function,
-enum gen_cell { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z };
+enum gen_cell { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, Aa, Bb, Cc, Dd };
 
 void turn_left(struct ant *ant);
 void turn_right(struct ant *ant);

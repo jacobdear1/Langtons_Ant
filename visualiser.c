@@ -27,8 +27,8 @@
 #define gen_cell_under_ant gen_cell_at(ant->y, ant->x) // macro to define the general cell_at function, as it has a differet set of cells, as the origianl cells only have 2 states; need 26 at least
 
 // enum holds the 8 colours that n curses supports
-//enum gen_colours {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_MAGENTA, COLOR_CYAN, COLOR_WHITE};
-//typedef enum gen_colours g_colours;
+// enum gen_colours {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_MAGENTA, COLOR_CYAN, COLOR_WHITE};
+// typedef enum gen_colours g_colours;
 
 // cell has the value of 0 or 1 due to the defintion of its enum
 cell *cells;
@@ -41,7 +41,7 @@ typedef enum gen_cell g_colours;
 g_colours *gen_cells;
 
 // defines the rule for use?
-//struct rule *rule;
+// struct rule *rule;
 
 // use an enum to represent colours?
 
@@ -54,7 +54,7 @@ void start_visualisation(struct ant* ant) {
    curs_set(FALSE);
    max_x = getmaxx(stdscr);
    max_y = getmaxy(stdscr);
-   cells = calloc(max_y*max_x, sizeof(cell)); // sets boundaries of the finite rectangular grid
+   cells = calloc(max_y*max_x, sizeof(cell));  // sets boundaries of the finite rectangular grid
    ant->x = max_x/2;
    ant->y = max_y/2;
    ant->direction = RIGHT;
@@ -83,19 +83,19 @@ void visualise_and_advance(struct ant* ant) {
       
       // implementation of the torus 
       // if the ant goes above the top row, it will go down to the bottom row
-      if (ant->x >= max_x){
+      if (ant->x >= max_x) {
          ant->x -= max_x;
       }
       // if the ant reaches the one column to the right of the rightmost column, it will reach the leftmost column
-      if (ant->y >= max_y){
+      if (ant->y >= max_y) {
          ant->y -= max_y;
       }
       // if the ant goes below the bottom row, it will go back up to the top row
-      if (ant->x < 0){
+      if (ant->x < 0) {
          ant->x += max_x;
       }
       // if the ant reaches the one column to the left of the leftmost column, it will reach the rightmost column
-      if (ant->y < 0){
+      if (ant->y < 0) {
          ant->y += max_y;
       }
 }
@@ -113,48 +113,55 @@ void gen_start_visualisation(struct ant* ant, struct rule* rule) {
    // these 2 lines mean that; gen_cells is only allocated as many states as equal to the length of the rule,
    // as e.g. we don't want to have 26 different values the cell can take, when the rule has a length of 2 
    int length_rule = strlen(rule->rules);
-   gen_cells = calloc(max_y*max_x, sizeof(length_rule)); // sets boundaries of the finite rectangular grid
-   
+   gen_cells = calloc(max_y*max_x, sizeof(length_rule));  // sets boundaries of the finite rectangular grid
    ant->x = max_x/2;
    ant->y = max_y/2;
    ant->direction = RIGHT;
 }
 
+// also the original value, so state 0 needs to equal value of whatever is at the end of the conditonal statement
+char *vis_array[28] = {" ", "B", "C", "D", "E", "F", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z", "!", "?"};
 // function to allow use to visualise the states
-void gen_vis_advance(struct ant* ant, struct rule* rule){
+void gen_vis_advance(struct ant* ant, struct rule* rule) {
+
+   //char* v = vis_array[gen_cell_at(ant->y, ant->x)];
+
       /* Draw cells and ant */
 
       // define the array here;
       // "█"
 
-      // also the original value, so state 0 needs to equal value of whatever is at the end of the conditonal statement
-      char *vis_array[10] = {" ", "B", "C", "D", "E", "F", "H", "I"};
 
       // fix the pointer conversion issue, turn the value produced by the vis_array into a char somehow
 
       // could do 
-      //int vis_array[g_colours]? just so the size is correct
+      // int vis_array[g_colours]? just so the size is correct
 
       // make sure that the value is greater than or equal to 1 to apply this otheriwse it won't work
 
-      //printf("cell at%d", gen_cell_at(ant->y, ant->x));
-      //char* v = vis_array[gen_cell_at(ant->y, ant->x)];
-      //printf("val%s", v);
+      // printf("cell at%d", gen_cell_at(ant->y, ant->x));
+      // char* v = vis_array[gen_cell_at(ant->y, ant->x)];
+      // printf("val%s", v);
 
       for (int y=0; y<max_y; y++)
       {
          for (int x=0; x<max_x; x++)
          {
-            char* v = vis_array[gen_cell_at(ant->y, ant->x)];
             mvprintw(y,x,
                ant_is_at(y,x)
                  ? direction_to_s(ant->direction)
+
+                 // if ant is at the specified position, then print the new direction to send the ant off to
+                 // else if it's not then it will analyse the cell at and should only change the value of a cell who's value has changed, if the cell is the 
+                 // same as it was before, it should stay the same. and then the cell that has changed this value should change
+
+
                  // change this to display the colour based on the state that the ant is currently at using the rule length and the state representations?
                  // if the current cell has a value of 0, then we have it as the original state and visualise it as white
                  
                  // **this condtional means that it changes the value of every 'cell' that has been 'visited', rather than the last one we were at**
                  // this issue needs fixing. 
-                 : gen_cell_at(y,x) // value of this is changed by the apply_rule_general function, just need a way to represent this
+                 : gen_cell_at(y,x) //== ant_is_at(y,x) // value of this is changed by the apply_rule_general function, just need a way to represent this
                  // needs to represent the colour / value related to its position in the enum?
                     //attron(COLOR_PAIR())
                     // need to work out a way to visualise different things depending on their state.
@@ -171,32 +178,35 @@ void gen_vis_advance(struct ant* ant, struct rule* rule){
 
                     // somewhat works, but instead of changing the specific cell it was at, it changes the whole screen?
                     // it changes all of the visited values rather than the value that the cell is at?
-                    ? v
-                    : " "
+
+                    // the statement is currently changing all values that are not 0 to the current value of v and then any that are to white;
+                    // due to the double for loop, need to change this so it only changes the cell under the ant
+                    ? vis_array[gen_cell_at(y, x)]
+                    : " " // need to keep this value what the cell originally was, not change the value?
             );
          }
       }
       refresh();
-      // passes the value of the current gen_cell_under_ant, I have adapted cell_under_ant to work for my general ant, the ant and then the rule
-      //printf("cell at val %d ", gen_cell_at(ant->y, ant->x));
+      // passes the value of the current gen_cell_under_ant, I have adapted cell_under_ant to work for my general ant, 
+      // the ant and then the rule
       apply_rule_general(&gen_cell_under_ant, ant, rule);
       move_forward(ant);
       
       // implementation of the torus 
       // if the ant goes above the top row, it will go down to the bottom row
-      if (ant->x >= max_x){
+      if (ant->x >= max_x) {
          ant->x -= max_x;
       }
       // if the ant reaches the one column to the right of the rightmost column, it will reach the leftmost column
-      if (ant->y >= max_y){
+      if (ant->y >= max_y) {
          ant->y -= max_y;
       }
       // if the ant goes below the bottom row, it will go back up to the top row
-      if (ant->x < 0){
+      if (ant->x < 0) {
          ant->x += max_x;
       }
       // if the ant reaches the one column to the left of the leftmost column, it will reach the rightmost column
-      if (ant->y < 0){
+      if (ant->y < 0) {
          ant->y += max_y;
       }
 }
