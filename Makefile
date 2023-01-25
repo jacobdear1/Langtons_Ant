@@ -1,7 +1,7 @@
 DEPS = langton.h visualiser.h
 
 all: visualiser.o langton.o main.c
-	gcc -o ant main.c visualiser.o langton.o -lncurses
+	gcc -o ant main.c visualiser.o langton.o -lncursesw
 
 	# need to add ncursesw before submission?
 
@@ -17,7 +17,7 @@ langton.o: langton.c langton.h
 
 library:
 	gcc -fPIC  -c *.c
-	gcc -shared -o libant.so *.o -lncurses
+	gcc -shared -o libant.so *.o -lncursesw
 	# add ncursesw before submission
 	gcc -Wall -Wextra -o ant main.c -L. -lant 
 
