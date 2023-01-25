@@ -6,10 +6,12 @@
 #include "visualiser.h"
 
 int main(int argc, char** argv) {
-    // if nothing is added after the definition of ant, runs the basic variation, will be at least one due to having the executable
+    // if nothing is added after the definition of ant, runs the basic
+    // variation, will be at least one due to having the executable
     if (argc == 1) {
         struct ant *new_ant = NULL;
-        // memory to the pointer new_ant, has all of the properties of the struct ant
+        // memory to the pointer new_ant, has all of the properties of
+        // the struct ant
         new_ant = malloc(sizeof(struct ant));
 
         // check that the memory has been allocated properly
@@ -17,57 +19,65 @@ int main(int argc, char** argv) {
             printf("Error in malloc() for the struct ant");
             exit(1);
         }
-        // at this point an ant has been created and then we start the visualisation with this
+        // at this point an ant has been created and then we start
+        // the visualisation with this
         start_visualisation(new_ant);
 
         // if the user presses q to quit then ends the visualisation
         if (not_quit() == false) {
                 end_visualisation(new_ant);
         }
-        // loops round until the user presses q, function not_quit() works out if q has been pressed or not
+        // loops round until the user presses q, function not_quit()
+        // works out if q has been pressed or not
         while (not_quit() != false) {
             // if the user presses q to quit then ends the visualisation
-            if (not_quit() == false) { 
-                    end_visualisation(new_ant); 
+            if (not_quit() == false) {
+                    end_visualisation(new_ant);
             }
-            for (int k =0; k<500; k++) {
-                visualise_and_advance(new_ant);
-            }
+            visualise_and_advance(new_ant);
         }
         // free allocated memory
-        free(new_ant);         
+        free(new_ant);
     }
 
-    // catches error in the case that the input the incorrect format of more than 2 arguments
+    // catches error in the case that the input the incorrect format
+    // of more than 2 arguments
     if (argc > 2) {
-        printf("Incorrect number of arguments passed, max is the executable, ./ant and a rule in the form LR");
+        printf("Invalid number of arguments passed, max is the exectuable");
+        printf(" ./ant and a rule which is a combination of L and R");
         exit(1);
     }
 
-    if (argc==2) {
-        // stores the value of the command line input into the variable rule
+    if (argc == 2) {
+        // stores the value of the command line input into the
+        // variable rule
         char *rule = argv[1];
-        // only have to visualise rules of up to 26 characters, so checks that is is not more than this
+        // only have to visualise rules of up to 26 characters, so checks
+        // that is is not more than this
         if (strlen(rule) > 26) {
-            printf("The maximum length of rules than can be visualised is 26, try again!");
+            printf("The maximum length of rules than can be visualised is 26");
             exit(1);
         }
 
         // checks the rule is of the correct format
-        for (unsigned long i=0; i < strlen(rule); i++) {
+        for (unsigned int i=0; i < strlen(rule); i++) {
             // check that the rule is of the correct format
-            if (rule[i] != ('L') && rule[i] != 'R' && rule[i] != ('l') && rule[i] != 'r') {
-                printf("Rule wasn't of correct format; which is a combination of L, R, l or r");
+            if (rule[i] != ('L') && rule[i] != 'R' &&
+            rule[i] != ('l') && rule[i] != 'r') {
+                printf("Rule wasn't of correct format");
+                printf("; which is a combination of L, R, l or r");
                 exit(1);
             }
-            // if the user inputs the rule in lower case it can handle this as well, it works by converting every instance of l or r to uppercase
+            // if the user inputs the rule in lower case it can handle this as
+            // well, it works by converting every instance of l or r
+            // to uppercase
             if (rule[i] == ('l') || rule[i] == ('r')) {
                 rule[i] = toupper(rule[i]);
                 }
         }
 
         struct rule *new_rule = NULL;
-        // allocate memory for struct, but do it for the length of char and then add this to the struct in a for loop?
+        // allocate memory for the rule the user has inputted
         new_rule = malloc(sizeof(argv[1]));
 
         // in the case that memory can't be allocated properly
@@ -75,42 +85,31 @@ int main(int argc, char** argv) {
             printf("Error in malloc() for the struct rule");
             exit(1);
         }
- 
-        // allocates the correct amount of memory for each character?
-        //new_rule = malloc(strlen(rule));
-
-        // not sure if we need to allocate each individual rule space?, or if we look at this in the function apply_rule_general
+        // sets the value of the struct to the user inputted rule
         new_rule->rules = rule;
-        
-        // after this, would then call the visualiser file, first the start visualisation and then the visualise and advance
-        struct ant *gen_ant = NULL;
 
+        struct ant *gen_ant = NULL;
         // allocates memory for the general ant
         gen_ant = malloc(sizeof(struct ant));
-        
         // to make sure that the memory has been correctly allocated
         if (gen_ant == NULL) {
             printf("Error in malloc() for the struct ant");
             exit(1);
         }
-
-        // pass in the rule so that we can use the length of rule to determine how many different cell types we can have
+        // pass in the rule so that we can use the length of rule to
+        // determine how many different cell types we can have
        gen_start_visualisation(gen_ant, new_rule);
-        
-        // loops round until the user presses q, function not_quit() works out if q has been pressed or not
+        // loops round until the user presses q, function not_quit()
+        // works out if q has been pressed or not
         if (not_quit() == false) {
             gen_end_visualisation(gen_ant);
         }
         while (not_quit() != false) {
-            for (int k = 0; k < 500; k++) {
-                gen_vis_advance(gen_ant, new_rule);
-            }
             // if the user presses q to quit then ends the visualisation
             if (not_quit() == false) {
                     gen_end_visualisation(gen_ant);
             }
-            // calls the general function for visualisation
-            // only want to pass the individual rule each time?
+            gen_vis_advance(gen_ant, new_rule);
         }
         // free allocated memory for the rule
         free(new_rule);

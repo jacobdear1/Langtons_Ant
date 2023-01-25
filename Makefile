@@ -17,7 +17,7 @@ langton.o: langton.c langton.h
 
 library:
 	gcc -fPIC  -c *.c
-	gcc -shared -o libant.so *.o -lncursesw
+	gcc -shared -o libant.so *.o -lncurses
 	# add ncursesw before submission
 	gcc -Wall -Wextra -o ant main.c -L. -lant 
 
