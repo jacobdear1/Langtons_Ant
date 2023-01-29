@@ -9,10 +9,13 @@ int main(int argc, char** argv) {
     // if nothing is added after the definition of ant, runs the basic
     // variation, will be at least one due to having the executable
     if (argc == 1) {
+        // allocate pointer to the struct to be NULL when defining as, 
+        // it means that if the memory isnn't allocated properly, the 
+        // program will stop due to if condition at line 21
         struct ant *new_ant = NULL;
         // memory to the pointer new_ant, has all of the properties of
         // the struct ant
-        new_ant = malloc(sizeof(struct ant));
+        new_ant = malloc(sizeof(*new_ant));
 
         // check that the memory has been allocated properly
         if (new_ant == NULL) {
@@ -78,7 +81,8 @@ int main(int argc, char** argv) {
 
         struct rule *new_rule = NULL;
         // allocate memory for the rule the user has inputted
-        new_rule = malloc(sizeof(argv[1]));
+        // use the pointer to the struct to alllocate memory correctly
+        new_rule = malloc(sizeof(*new_rule));
 
         // in the case that memory can't be allocated properly
         if (new_rule == NULL) {
@@ -90,7 +94,7 @@ int main(int argc, char** argv) {
 
         struct ant *gen_ant = NULL;
         // allocates memory for the general ant
-        gen_ant = malloc(sizeof(struct ant));
+        gen_ant = malloc(sizeof(*gen_ant));
         // to make sure that the memory has been correctly allocated
         if (gen_ant == NULL) {
             printf("Error in malloc() for the struct ant");

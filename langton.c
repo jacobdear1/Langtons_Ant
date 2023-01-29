@@ -97,7 +97,9 @@ void apply_rule(enum colour *colour, struct ant *ant) {
 }
 
 // change the function definition to
-void apply_rule_general(enum gen_cell *gen_cell, struct ant *ant, struct rule *rule) {
+// function written on 2 lines as cpplint complained about line length
+void apply_rule_general(enum gen_cell *gen_cell, struct ant *ant,
+struct rule *rule) {
     // an array of the rule split into individual rules
     // position in array relates to the state (represented by j)
     // that the rule applies to
