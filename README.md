@@ -9,7 +9,7 @@ Further details of this can be found in the corresponding paper (https://arxiv.o
 
 To implement Langton's ant, a basic version and then the more advanced; general ant which can have up to n states, with a rule inputted to define what to do at squares of specific states from 1 to n.
 
-The ant will move around the screen by the user pressing any key except q, q will quit the program and stop the visualisation
+The ant will move around the screen by the user pressing any key except q, q will quit the program and stop the visualisation.
 
 ## How to run the code
 
@@ -23,13 +23,13 @@ This will launch the executable ```ant``` you can change the inputted rule in th
 
 ```make library```
 
-and then the to run call the executable
+and then the to run call the executable;
 
 ```./ant```
 
 ## Applying general rule for n state ants
 
-If you want to apply the general rule, call the executable ```ant``` followed by a combination of L and R depending on what you want it to do in the states call, for example
+If you want to apply the general rule, call the executable ```ant``` followed by a combination of L and R depending on what you want it to do in the states call, for example;
 
 ```./ant LRLRR``` where the ant will turn left on states 0 and 2, and right on states 1, 3, 4
 
