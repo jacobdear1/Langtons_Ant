@@ -9,8 +9,8 @@ int main(int argc, char** argv) {
     // if nothing is added after the definition of ant, runs the basic
     // variation, will be at least one due to having the executable
     if (argc == 1) {
-        // allocate pointer to the struct to be NULL when defining as, 
-        // it means that if the memory isnn't allocated properly, the 
+        // allocate pointer to the struct to be NULL when defining as,
+        // it means that if the memory isnn't allocated properly, the
         // program will stop due to if condition at line 21
         struct ant *new_ant = NULL;
         // memory to the pointer new_ant, has all of the properties of
@@ -33,12 +33,11 @@ int main(int argc, char** argv) {
         // loops round until the user presses q, function not_quit()
         // works out if q has been pressed or not
         while (not_quit() != false) {
-            // if the user presses q to quit then ends the visualisation
-            if (not_quit() == false) {
-                    end_visualisation(new_ant);
-            }
             visualise_and_advance(new_ant);
         }
+        // if the user presses q to quit then ends the visualisation
+        end_visualisation(new_ant);
+            
         // free allocated memory
         free(new_ant);
     }
@@ -109,12 +108,10 @@ int main(int argc, char** argv) {
             gen_end_visualisation(gen_ant);
         }
         while (not_quit() != false) {
-            // if the user presses q to quit then ends the visualisation
-            if (not_quit() == false) {
-                    gen_end_visualisation(gen_ant);
-            }
             gen_vis_advance(gen_ant, new_rule);
         }
+        // if the user presses q to quit then ends the visualisation
+        gen_end_visualisation(gen_ant);
         // free allocated memory for the rule
         free(new_rule);
         // free allocated memory for the ant
