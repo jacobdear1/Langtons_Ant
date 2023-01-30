@@ -2,7 +2,7 @@
 
 ## Background
 
-Langton's ant is a two-dimensional universal Turing machine that can demonstrate complexemergent behaviour based on a very simple set of rules. First created by Chris Langton in 1986,Langton's ant runs on a square lattice of black and white cells.
+Langton's ant is a two-dimensional universal Turing machine that can demonstrate complexemergent behaviour based on a very simple set of rules. First created by Chris Langton in 1986, Langton's ant runs on a square lattice of black and white cells.
 Further details of this can be found in the corresponding paper (https://arxiv.org/pdf/math/9501233.pdf).
 
 ## The task
@@ -23,7 +23,7 @@ This will launch the executable ```ant``` you can change the inputted rule in th
 
 ```make library```
 
-and then the executable
+and then the to run call the executable
 
 ```./ant```
 
@@ -39,8 +39,10 @@ Note: This general rule works for rules of length up to 26.
 
 ```make clean```
 
-Note: If you are using MacOS, change the ```-lncursesw``` in the Makefile, in these 2 functions; ```make all``` and ```make library```
+## Notes
+
+* If you are using MacOS, change the ```-lncursesw``` in the Makefile, in these 2 functions; ```make all``` and ```make library```
 to ```-lncurses``` as MacOS does not have support for ```-lncursesw```, unlike Windows.
 
-Note: You can run the ```./ant``` executable by either doing ```make library``` and then ```./ant``` with any rule you want or you can do
+* You can run the ```./ant``` executable by either doing ```make library``` and then ```./ant``` with any rule you want or you can do
 ```make``` or ```make all``` and this will run the ant.
