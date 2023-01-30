@@ -102,7 +102,8 @@ void apply_rule_general(enum gen_cell *gen_cell, struct ant *ant,
 struct rule *rule) {
     // an array of the rule split into individual rules
     // position in array relates to the state (represented by j)
-    // that the rule applies to
+    // that the rule applies to, the size of this depends on length
+    // of the inputted rule
     int g_array[strlen(rule->rules)];
     for (int j=0; j < strlen(rule->rules); j++) {
         g_array[j] = rule->rules[j];

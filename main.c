@@ -37,7 +37,6 @@ int main(int argc, char** argv) {
         }
         // if the user presses q to quit then ends the visualisation
         end_visualisation(new_ant);
-            
         // free allocated memory
         free(new_ant);
     }
@@ -111,6 +110,7 @@ int main(int argc, char** argv) {
             gen_vis_advance(gen_ant, new_rule);
         }
         // if the user presses q to quit then ends the visualisation
+        // occurs when not_quit() is false
         gen_end_visualisation(gen_ant);
         // free allocated memory for the rule
         free(new_rule);

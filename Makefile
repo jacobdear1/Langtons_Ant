@@ -3,7 +3,8 @@
 # of the test rule I have written (LR), if you want the basic ant
 # then don't add a rule
 # makes a call to the command library, which compiles the dynamically
-# linked library and the executable ./ant
+# linked library and the executable ./ant, uses this executable to start
+# the game
 all: library 
 	./ant LR
 
