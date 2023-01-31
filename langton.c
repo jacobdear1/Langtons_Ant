@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "langton.h"
-#include "visualiser.h"
 
 void turn_left(struct ant *ant) {
     // changes the ant's direction to turn 90 degrees clockwise, e.g. if the

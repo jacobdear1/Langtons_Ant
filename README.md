@@ -17,15 +17,11 @@ To run the program use;
 
 ```make```
 
-This will launch the executable ```ant``` you can change the inputted rule in the makefile, it is currently ```LR```
+This will launch the executable ```ant``` you can change the inputted rule in the makefile, it is currently ```LR```.
 
 ## To compile a dynamically linked library ```libant.so```
 
 ```make library```
-
-and then the to run call the executable;
-
-```./ant```
 
 ## Applying general rule for n state ants
 
@@ -44,5 +40,4 @@ Note: This general rule works for rules of length up to 26.
 * If you are using MacOS, change the ```-lncursesw``` in the Makefile, in these 2 functions; ```make all``` and ```make library```
 to ```-lncurses``` as MacOS does not have support for ```-lncursesw```, unlike Windows.
 
-* You can run the ```./ant``` executable by either doing ```make library``` and then ```./ant``` with any rule you want or you can do
-```make``` or ```make all``` and this will run the ant.
+* You can run the ```./ant``` executable by either doing ```make``` or ```make all``` and this will run the ant automtically.

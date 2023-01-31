@@ -2,10 +2,8 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
-
+#include <string.h>  // part of standard library so okay to use
 #include "visualiser.h"
-#include "langton.h"
 
 // looks in the cells array, using the x and y coordinates to find the 'state'
 // that it is at, could be 1 or 0 depending on whether the cell is currently

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>  // part of standard library, so okay to use
-
 #include "visualiser.h"
 
 int main(int argc, char** argv) {
