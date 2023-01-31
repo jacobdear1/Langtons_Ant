@@ -103,6 +103,7 @@ struct rule *rule) {
     // position in array relates to the state (represented by j)
     // that the rule applies to, the size of this depends on length
     // of the inputted rule
+    // gives an error about VLAs, but C seems to support them unlike C++?
     int g_array[strlen(rule->rules)];
     for (int j=0; j < strlen(rule->rules); j++) {
         g_array[j] = rule->rules[j];

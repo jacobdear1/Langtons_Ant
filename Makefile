@@ -5,9 +5,8 @@
 # makes a call to the command library, which uses
 # this library to create the executable ./ant
 # the -rpath=. allows you to find the dynamically linked library on 
-# mira, doesn't work for MacOS, change the first line to this for Mac;
-# gcc -Wall -Wextra -o ant main.c -L. -lant
-all: library 
+# mira
+all: library
 	gcc -Wall -Wextra main.o -Wl,-rpath=. -L. -lant -o ant
 	./ant LR
 
