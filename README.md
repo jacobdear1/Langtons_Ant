@@ -17,7 +17,7 @@ To run the program use;
 
 ```make```
 
-This will launch the executable ```ant``` you can change the inputted rule in the makefile, it is currently ```LR```.
+This will launch the executable ```ant```, you can change the inputted rule in the makefile, it is currently ```LR```.
 
 ## To compile a dynamically linked library ```libant.so```
 
@@ -37,7 +37,8 @@ Note: This general rule works for rules of length up to 26.
 
 ## Notes
 
-* If you are using MacOS, change the ```-lncursesw``` in the Makefile, in these 2 functions; ```make all``` and ```make library```
-to ```-lncurses``` as MacOS does not have support for ```-lncursesw```, unlike Windows.
+* If you are using MacOS, change the ```-lncursesw``` in the Makefile for the command ```make library```to ```-lncurses``` as MacOS does not have support for ```-lncursesw```, unlike Windows.
 
-* You can run the ```./ant``` executable by either doing ```make``` or ```make all``` and this will run the ant automtically.
+* You can run the ```./ant``` executable by either doing ```make``` or ```make all``` and this will run the ant automatically.
+
+* To use and the ```libant.so``` to create the executable on MacOS you need to use ```gcc -Wall -Wextra -o ant main.c -L. -lant``` instead of ``` gcc -Wall -Wextra main.o -Wl,-rpath=. -L. -lant -o ant ``` in the ```make all``` command.
