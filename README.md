@@ -1,4 +1,4 @@
-# Programming Paradigms Summative
+# Langton's Ant
 
 ## Background
 
